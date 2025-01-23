@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "730983247975",
+    "project_id": "esign-flutter",
+    "storage_bucket": "esign-flutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730983247975:android:08cb11c6dcc4e55fa4a4c2",
+        "android_client_info": {
+          "package_name": "com.example.esign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730983247975-0griun2i1vta94oufsi4gk0sbraal469.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.esign",
+            "certificate_hash": "1f0a5f9911c00d693b36daa3f6f20140913f5a86"
+          }
+        },
+        {
+          "client_id": "730983247975-hoehmtiqla8iqget9hemsos2loq6gkk4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-PXfl7faJtO_-zIv5RlmRY68MOXUcCXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730983247975-hoehmtiqla8iqget9hemsos2loq6gkk4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "730983247975-q8alii97purq5ca4tjshcq2p31f71a6v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.esign"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
