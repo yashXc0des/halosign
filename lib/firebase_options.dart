@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -49,20 +46,30 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAOxbs7bmNAuu04BSdQItWVzFzLBKtTBsw',
+    appId: '1:481922805202:web:5e46ee990471ad7cdcec0b',
+    messagingSenderId: '481922805202',
+    projectId: 'haloyte-esign',
+    authDomain: 'haloyte-esign.firebaseapp.com',
+    storageBucket: 'haloyte-esign.firebasestorage.app',
+    measurementId: 'G-VJ3B7V3YM4',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD-PXfl7faJtO_-zIv5RlmRY68MOXUcCXM',
-    appId: '1:730983247975:android:08cb11c6dcc4e55fa4a4c2',
-    messagingSenderId: '730983247975',
-    projectId: 'esign-flutter',
-    storageBucket: 'esign-flutter.firebasestorage.app',
+    apiKey: 'AIzaSyAEinrOJ8jJiM_JsJMAkI2l3C4nsYX-SOs',
+    appId: '1:481922805202:android:45e2022544b45593dcec0b',
+    messagingSenderId: '481922805202',
+    projectId: 'haloyte-esign',
+    storageBucket: 'haloyte-esign.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBPiMhTt4jsjItSVpKbt6d9pfCYb6cWnBo',
-    appId: '1:730983247975:ios:efaf48823875b3a3a4a4c2',
-    messagingSenderId: '730983247975',
-    projectId: 'esign-flutter',
-    storageBucket: 'esign-flutter.firebasestorage.app',
-    iosBundleId: 'com.example.esign',
+    apiKey: 'AIzaSyB3owu8Sd4lttuLQ-WMM-K_9YocuSWgiVw',
+    appId: '1:481922805202:ios:774807a4ffbe1cdbdcec0b',
+    messagingSenderId: '481922805202',
+    projectId: 'haloyte-esign',
+    storageBucket: 'haloyte-esign.firebasestorage.app',
+    iosBundleId: 'com.haloyte.esign.esign',
   );
 }
