@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:481922805202:android:45e2022544b45593dcec0b",
+        "mobilesdk_app_id": "1:481922805202:android:5d42e393a9f4dcbedcec0b",
         "android_client_info": {
-          "package_name": "com.haloyte.esign.esign"
+          "package_name": "com.haloyte.esign"
         }
       },
       "oauth_client": [],

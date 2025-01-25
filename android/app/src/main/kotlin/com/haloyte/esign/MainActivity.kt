@@ -1,4 +1,4 @@
-package com.haloyte.esign.esign
+package com.haloyte.esign
 
 import io.flutter.embedding.android.FlutterActivity
 

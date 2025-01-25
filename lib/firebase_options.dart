@@ -25,15 +25,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -48,17 +42,17 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyAOxbs7bmNAuu04BSdQItWVzFzLBKtTBsw',
-    appId: '1:481922805202:web:5e46ee990471ad7cdcec0b',
+    appId: '1:481922805202:web:834dff7a5c6ad2cedcec0b',
     messagingSenderId: '481922805202',
     projectId: 'haloyte-esign',
     authDomain: 'haloyte-esign.firebaseapp.com',
     storageBucket: 'haloyte-esign.firebasestorage.app',
-    measurementId: 'G-VJ3B7V3YM4',
+    measurementId: 'G-NG5YQZXWT8',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAEinrOJ8jJiM_JsJMAkI2l3C4nsYX-SOs',
-    appId: '1:481922805202:android:45e2022544b45593dcec0b',
+    appId: '1:481922805202:android:5d42e393a9f4dcbedcec0b',
     messagingSenderId: '481922805202',
     projectId: 'haloyte-esign',
     storageBucket: 'haloyte-esign.firebasestorage.app',
@@ -66,10 +60,30 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyB3owu8Sd4lttuLQ-WMM-K_9YocuSWgiVw',
-    appId: '1:481922805202:ios:774807a4ffbe1cdbdcec0b',
+    appId: '1:481922805202:ios:de55a8619a336ff1dcec0b',
     messagingSenderId: '481922805202',
     projectId: 'haloyte-esign',
     storageBucket: 'haloyte-esign.firebasestorage.app',
-    iosBundleId: 'com.haloyte.esign.esign',
+    iosBundleId: 'com.haloyte.esign',
   );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyB3owu8Sd4lttuLQ-WMM-K_9YocuSWgiVw',
+    appId: '1:481922805202:ios:de55a8619a336ff1dcec0b',
+    messagingSenderId: '481922805202',
+    projectId: 'haloyte-esign',
+    storageBucket: 'haloyte-esign.firebasestorage.app',
+    iosBundleId: 'com.haloyte.esign',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyAOxbs7bmNAuu04BSdQItWVzFzLBKtTBsw',
+    appId: '1:481922805202:web:367d0ecac2bd2b47dcec0b',
+    messagingSenderId: '481922805202',
+    projectId: 'haloyte-esign',
+    authDomain: 'haloyte-esign.firebaseapp.com',
+    storageBucket: 'haloyte-esign.firebasestorage.app',
+    measurementId: 'G-PYJTG170T9',
+  );
+
 }
