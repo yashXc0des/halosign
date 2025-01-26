@@ -27,6 +27,7 @@ _$AgreementImpl _$$AgreementImplFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       pdfUrl: json['pdfUrl'] as String?,
+      sendTo: json['sendTo'] as String?,
     );
 
 Map<String, dynamic> _$$AgreementImplToJson(_$AgreementImpl instance) =>
@@ -41,6 +42,7 @@ Map<String, dynamic> _$$AgreementImplToJson(_$AgreementImpl instance) =>
       'signatories': instance.signatories,
       'signedBy': instance.signedBy,
       'pdfUrl': instance.pdfUrl,
+      'sendTo': instance.sendTo,
     };
 
 const _$AgreementStatusEnumMap = {

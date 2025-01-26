@@ -23,6 +23,9 @@ dependencies:
   freezed_annotation: ^2.4.4
   intl: ^0.20.1
   flutter_native_splash: ^2.4.4
+  file_picker: ^8.1.7
+  json_serializable: ^6.9.0
+  firebase_storage: ^12.4.1
 
 dev_dependencies:
   flutter_test:
@@ -35,7 +38,6 @@ dev_dependencies:
   custom_lint: ^0.7.0
   riverpod_lint: ^2.6.3
   freezed: ^2.5.7
-  json_serializable: ^6.9.0
   flutter_launcher_icons: ^0.14.3
 
 flutter_launcher_icons:

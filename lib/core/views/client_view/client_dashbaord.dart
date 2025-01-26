@@ -13,7 +13,7 @@ class _ClientDashboardState extends State<ClientDashboard> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    Client_AggrementScreen(),
+    AgreementScreen(),
     Client_SettingsScreen(),
   ];
 
@@ -27,7 +27,7 @@ class _ClientDashboardState extends State<ClientDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Dashboard'),
+        title: Text('Client Dashboard'),
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

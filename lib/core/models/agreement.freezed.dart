@@ -20,25 +20,17 @@ Agreement _$AgreementFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Agreement {
-  String get id =>
-      throw _privateConstructorUsedError; // Unique identifier for the agreement.
-  String get title =>
-      throw _privateConstructorUsedError; // Title of the agreement.
-  String? get description =>
-      throw _privateConstructorUsedError; // Description of the agreement (nullable).
-  String get createdBy =>
-      throw _privateConstructorUsedError; // User ID of the creator.
-  DateTime get createdAt =>
-      throw _privateConstructorUsedError; // Timestamp when the agreement was created.
-  DateTime? get updatedAt =>
-      throw _privateConstructorUsedError; // Timestamp for the last update (nullable).
-  AgreementStatus get status =>
-      throw _privateConstructorUsedError; // Status of the agreement.
-  List<String> get signatories =>
-      throw _privateConstructorUsedError; // List of user IDs required to sign.
-  List<String> get signedBy =>
-      throw _privateConstructorUsedError; // List of user IDs who have signed.
+  String get id => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String get createdBy => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  AgreementStatus get status => throw _privateConstructorUsedError;
+  List<String> get signatories => throw _privateConstructorUsedError;
+  List<String> get signedBy => throw _privateConstructorUsedError;
   String? get pdfUrl => throw _privateConstructorUsedError;
+  String? get sendTo => throw _privateConstructorUsedError;
 
   /// Serializes this Agreement to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -65,7 +57,8 @@ abstract class $AgreementCopyWith<$Res> {
       AgreementStatus status,
       List<String> signatories,
       List<String> signedBy,
-      String? pdfUrl});
+      String? pdfUrl,
+      String? sendTo});
 }
 
 /// @nodoc
@@ -93,6 +86,7 @@ class _$AgreementCopyWithImpl<$Res, $Val extends Agreement>
     Object? signatories = null,
     Object? signedBy = null,
     Object? pdfUrl = freezed,
+    Object? sendTo = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -135,6 +129,10 @@ class _$AgreementCopyWithImpl<$Res, $Val extends Agreement>
           ? _value.pdfUrl
           : pdfUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      sendTo: freezed == sendTo
+          ? _value.sendTo
+          : sendTo // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -157,7 +155,8 @@ abstract class _$$AgreementImplCopyWith<$Res>
       AgreementStatus status,
       List<String> signatories,
       List<String> signedBy,
-      String? pdfUrl});
+      String? pdfUrl,
+      String? sendTo});
 }
 
 /// @nodoc
@@ -183,6 +182,7 @@ class __$$AgreementImplCopyWithImpl<$Res>
     Object? signatories = null,
     Object? signedBy = null,
     Object? pdfUrl = freezed,
+    Object? sendTo = freezed,
   }) {
     return _then(_$AgreementImpl(
       id: null == id
@@ -225,13 +225,17 @@ class __$$AgreementImplCopyWithImpl<$Res>
           ? _value.pdfUrl
           : pdfUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      sendTo: freezed == sendTo
+          ? _value.sendTo
+          : sendTo // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AgreementImpl extends _Agreement {
+class _$AgreementImpl implements _Agreement {
   const _$AgreementImpl(
       {required this.id,
       required this.title,
@@ -242,38 +246,30 @@ class _$AgreementImpl extends _Agreement {
       this.status = AgreementStatus.draft,
       final List<String> signatories = const [],
       final List<String> signedBy = const [],
-      this.pdfUrl})
+      this.pdfUrl,
+      this.sendTo})
       : _signatories = signatories,
-        _signedBy = signedBy,
-        super._();
+        _signedBy = signedBy;
 
   factory _$AgreementImpl.fromJson(Map<String, dynamic> json) =>
       _$$AgreementImplFromJson(json);
 
   @override
   final String id;
-// Unique identifier for the agreement.
   @override
   final String title;
-// Title of the agreement.
   @override
   final String? description;
-// Description of the agreement (nullable).
   @override
   final String createdBy;
-// User ID of the creator.
   @override
   final DateTime createdAt;
-// Timestamp when the agreement was created.
   @override
   final DateTime? updatedAt;
-// Timestamp for the last update (nullable).
   @override
   @JsonKey()
   final AgreementStatus status;
-// Status of the agreement.
   final List<String> _signatories;
-// Status of the agreement.
   @override
   @JsonKey()
   List<String> get signatories {
@@ -282,9 +278,7 @@ class _$AgreementImpl extends _Agreement {
     return EqualUnmodifiableListView(_signatories);
   }
 
-// List of user IDs required to sign.
   final List<String> _signedBy;
-// List of user IDs required to sign.
   @override
   @JsonKey()
   List<String> get signedBy {
@@ -293,13 +287,14 @@ class _$AgreementImpl extends _Agreement {
     return EqualUnmodifiableListView(_signedBy);
   }
 
-// List of user IDs who have signed.
   @override
   final String? pdfUrl;
+  @override
+  final String? sendTo;
 
   @override
   String toString() {
-    return 'Agreement(id: $id, title: $title, description: $description, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, signatories: $signatories, signedBy: $signedBy, pdfUrl: $pdfUrl)';
+    return 'Agreement(id: $id, title: $title, description: $description, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, signatories: $signatories, signedBy: $signedBy, pdfUrl: $pdfUrl, sendTo: $sendTo)';
   }
 
   @override
@@ -321,7 +316,8 @@ class _$AgreementImpl extends _Agreement {
             const DeepCollectionEquality()
                 .equals(other._signatories, _signatories) &&
             const DeepCollectionEquality().equals(other._signedBy, _signedBy) &&
-            (identical(other.pdfUrl, pdfUrl) || other.pdfUrl == pdfUrl));
+            (identical(other.pdfUrl, pdfUrl) || other.pdfUrl == pdfUrl) &&
+            (identical(other.sendTo, sendTo) || other.sendTo == sendTo));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -337,7 +333,8 @@ class _$AgreementImpl extends _Agreement {
       status,
       const DeepCollectionEquality().hash(_signatories),
       const DeepCollectionEquality().hash(_signedBy),
-      pdfUrl);
+      pdfUrl,
+      sendTo);
 
   /// Create a copy of Agreement
   /// with the given fields replaced by the non-null parameter values.
@@ -355,7 +352,7 @@ class _$AgreementImpl extends _Agreement {
   }
 }
 
-abstract class _Agreement extends Agreement {
+abstract class _Agreement implements Agreement {
   const factory _Agreement(
       {required final String id,
       required final String title,
@@ -366,32 +363,34 @@ abstract class _Agreement extends Agreement {
       final AgreementStatus status,
       final List<String> signatories,
       final List<String> signedBy,
-      final String? pdfUrl}) = _$AgreementImpl;
-  const _Agreement._() : super._();
+      final String? pdfUrl,
+      final String? sendTo}) = _$AgreementImpl;
 
   factory _Agreement.fromJson(Map<String, dynamic> json) =
       _$AgreementImpl.fromJson;
 
   @override
-  String get id; // Unique identifier for the agreement.
+  String get id;
   @override
-  String get title; // Title of the agreement.
+  String get title;
   @override
-  String? get description; // Description of the agreement (nullable).
+  String? get description;
   @override
-  String get createdBy; // User ID of the creator.
+  String get createdBy;
   @override
-  DateTime get createdAt; // Timestamp when the agreement was created.
+  DateTime get createdAt;
   @override
-  DateTime? get updatedAt; // Timestamp for the last update (nullable).
+  DateTime? get updatedAt;
   @override
-  AgreementStatus get status; // Status of the agreement.
+  AgreementStatus get status;
   @override
-  List<String> get signatories; // List of user IDs required to sign.
+  List<String> get signatories;
   @override
-  List<String> get signedBy; // List of user IDs who have signed.
+  List<String> get signedBy;
   @override
   String? get pdfUrl;
+  @override
+  String? get sendTo;
 
   /// Create a copy of Agreement
   /// with the given fields replaced by the non-null parameter values.

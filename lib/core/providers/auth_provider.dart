@@ -1,8 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/authentication.dart';
 
-class AuthProvider with ChangeNotifier {
+// Declare the provider variable
+final authProvider = ChangeNotifierProvider<AuthProvider>((ref) {
+  return AuthProvider();
+});
+
+class AuthProvider extends ChangeNotifier {
   final AuthenticationService _authService = AuthenticationService();
   User? _user;
 

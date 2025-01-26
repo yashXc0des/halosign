@@ -5,6 +5,7 @@ import 'admin_settings.dart';
 import 'admin_users.dart';
 
 
+
 class AdminDashboard extends StatefulWidget {
   @override
   _AdminDashboardState createState() => _AdminDashboardState();
@@ -14,7 +15,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    Admin_HomeScreen(),
+    UploadScreen(),
     Admin_UsersScreen(),
     Admin_SettingsScreen(),
   ];
