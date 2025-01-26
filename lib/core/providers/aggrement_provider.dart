@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/agreement.dart';
+import '../views/aggrement/pdf_viewer.dart';
 
 final agreementProvider = Provider((ref) => AgreementService());
 
@@ -73,15 +76,8 @@ class AgreementNotifier extends StateNotifier<List<Agreement>> {
       print('Error rejecting agreement: $e');
     }
   }
+  // Example function to simulate opening a PDF
 
-  Future<void> openPdf(String pdfUrl) async {
-    // Open PDF using your preferred PDF viewer library
-    // Example: using url_launcher
-    final Uri pdfUri = Uri.parse(pdfUrl);
-    if (await canLaunchUrl(pdfUri)) {
-      await launchUrl(pdfUri);
-    } else {
-      print('Could not launch $pdfUrl');
-    }
-  }
+
+
 }

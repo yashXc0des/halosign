@@ -1,7 +1,11 @@
+// lib/screens/agreement_details_page.dart
+
+import 'package:esign/core/views/aggrement/pdf_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/agreement.dart';
 import '../../providers/aggrement_provider.dart';
+
 
 class AgreementDetailsPage extends ConsumerStatefulWidget {
   final Agreement agreement;
@@ -28,36 +32,32 @@ class _AgreementDetailsPageState extends ConsumerState<AgreementDetailsPage> {
             SizedBox(height: 10),
             Text('Description: ${widget.agreement.description}'),
             SizedBox(height: 10),
-            Text('Status: ${widget.agreement.status}'),
+            Text('Status: ${widget.agreement.status.description}'),
             Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    print('Reject button pressed');
                     await ref.read(agreementsProvider.notifier).rejectAgreement(ref as Ref<Object?>, widget.agreement.id);
                     Navigator.pop(context);
                   },
                   child: Text('Reject'),
                 ),
                 ElevatedButton(
-                  onPressed: () async {
-                    print('Open PDF button pressed');
-                    setState(() {
-                      isLoading = true; // Start loading
-                    });
-                    await ref.read(agreementsProvider.notifier).openPdf(widget.agreement.pdfUrl!);
-                    setState(() {
-                      isLoading = false; // Stop loading
-                    });
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PdfViewer(pdfUrl: widget.agreement.pdfUrl!),
+                      ),
+                    );
                   },
                   child: Text('Open PDF'),
                 ),
               ],
             ),
-            if (isLoading) // Show loader if isLoading is true
-              Center(child: CircularProgressIndicator()),
+            if (isLoading) Center(child: CircularProgressIndicator()),
           ],
         ),
       ),
