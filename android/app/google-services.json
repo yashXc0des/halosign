@@ -1,26 +1,44 @@
 {
   "project_info": {
-    "project_number": "481922805202",
-    "project_id": "haloyte-esign",
-    "storage_bucket": "haloyte-esign.firebasestorage.app"
+    "project_number": "228656849823",
+    "project_id": "esign-haloyte",
+    "storage_bucket": "esign-haloyte.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:481922805202:android:5d42e393a9f4dcbedcec0b",
+        "mobilesdk_app_id": "1:228656849823:android:cfdfa0ac994af5eacb53aa",
         "android_client_info": {
           "package_name": "com.haloyte.esign"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "228656849823-7a3jc21n4t28q3dcikk34mes40vhtmes.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.haloyte.esign",
+            "certificate_hash": "1f0a5f9911c00d693b36daa3f6f20140913f5a86"
+          }
+        },
+        {
+          "client_id": "228656849823-81l5v3dbljuclber9csgvvt61iotj8j9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAEinrOJ8jJiM_JsJMAkI2l3C4nsYX-SOs"
+          "current_key": "AIzaSyATrtodpDG9ZE_-vBCaajOnr3S_Bt3S13I"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "228656849823-81l5v3dbljuclber9csgvvt61iotj8j9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
