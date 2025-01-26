@@ -13,7 +13,7 @@ class _ClientDashboardState extends State<ClientDashboard> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    AgreementScreen(),
+    AgreementListPage(),
     Client_SettingsScreen(),
   ];
 
