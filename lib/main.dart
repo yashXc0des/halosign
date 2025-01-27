@@ -1,4 +1,4 @@
-import 'package:esign/core/utils/constants.dart';
+import 'package:halosign/core/utils/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,6 +28,11 @@ class HaloSign extends StatelessWidget {
       title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.teal),
+      home: const Scaffold(
+        body: Center(
+          child: Text('Hello World'),
+        ),
+      ),
     );
   }
 }

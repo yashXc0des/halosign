@@ -1,4 +1,4 @@
-name: esign
+name: halosign
 description: "A new Flutter project."
 version: 1.0.0+1
 
@@ -21,8 +21,10 @@ dependencies:
   riverpod_annotation: ^2.6.1
   json_annotation: ^4.9.0
   freezed_annotation: ^2.4.4
-  intl: ^0.20.1
+  intl: ^0.19.0
   flutter_native_splash: ^2.4.4
+  file_picker: ^8.1.7
+  syncfusion_flutter_pdfviewer: ^24.2.9
 
 dev_dependencies:
   flutter_test:
@@ -37,6 +39,9 @@ dev_dependencies:
   freezed: ^2.5.7
   json_serializable: ^6.9.0
   flutter_launcher_icons: ^0.14.3
+
+dependency_overrides:
+  uuid: ^4.5.1
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -60,3 +65,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/icons/

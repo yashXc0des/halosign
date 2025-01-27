@@ -1,4 +1,3 @@
-import 'package:esign/core/models/user.dart';
 
 /// Contains global constants used throughout the application.
 class AppConstants {

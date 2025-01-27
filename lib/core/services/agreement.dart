@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:esign/core/models/agreement.dart';
+import 'package:halosign/core/models/agreement.dart';
 
 class AgreementService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

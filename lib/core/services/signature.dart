@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:esign/core/models/signature.dart';
+import 'package:halosign/core/models/signature.dart';
 
 class SignatureService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
