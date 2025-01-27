@@ -51,11 +51,11 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAEinrOJ8jJiM_JsJMAkI2l3C4nsYX-SOs',
-    appId: '1:481922805202:android:5d42e393a9f4dcbedcec0b',
-    messagingSenderId: '481922805202',
-    projectId: 'haloyte-esign',
-    storageBucket: 'haloyte-esign.firebasestorage.app',
+    apiKey: 'AIzaSyATrtodpDG9ZE_-vBCaajOnr3S_Bt3S13I',
+    appId: '1:228656849823:android:cfdfa0ac994af5eacb53aa',
+    messagingSenderId: '228656849823',
+    projectId: 'esign-haloyte',
+    storageBucket: 'esign-haloyte.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(

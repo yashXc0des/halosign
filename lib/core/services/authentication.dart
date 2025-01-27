@@ -14,7 +14,12 @@ class AuthenticationService {
   Future<UserCredential?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      if (googleUser == null) {
+        print('Google sign-in aborted by user.');
+        return null;
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
       final OAuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -29,6 +34,7 @@ class AuthenticationService {
       return null;
     }
   }
+
 
   // Sign out the user
   Future<void> signOut() async {
@@ -67,5 +73,6 @@ class AuthenticationService {
         'permissions': [],
       });
     }
+
   }
 }
