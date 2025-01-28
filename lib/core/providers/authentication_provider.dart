@@ -35,16 +35,18 @@ class AuthenticationNotifier extends StateNotifier<User?> {
     await _authService.signOut();
     state = null;
   }
-  UserRole get currentUserRole {
+  // Get user role from Firestore
+  Future<UserRole> get currentUserRole async {
     final user = _authService.currentUser;
     if (user != null) {
-      // Assuming the role is saved in Firestore
-      return _authService.getUserRole(user.uid);
+      return await _authService.getUserRole(user.uid); // Fetch the role from Firestore
     }
     return UserRole.clientUser; // Default role
   }
 }
-}
+
+
+
 
 final authenticationProvider = StateNotifierProvider<AuthenticationNotifier, User?>(
       (ref) => AuthenticationNotifier(AuthenticationService()),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../core/navigation/rolebased_navigation.dart';
 import '../core/providers/authentication_provider.dart';
+
 
 class GoogleSignInScreen extends ConsumerWidget {
   @override
@@ -25,20 +27,7 @@ class GoogleSignInScreen extends ConsumerWidget {
             ),
           ],
         )
-            : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Welcome, ${user.displayName ?? 'User'}!'),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Trigger sign-out
-                ref.read(authenticationProvider.notifier).signOut();
-              },
-              child: Text('Sign out'),
-            ),
-          ],
-        ),
+            : RoleBasedNavigation(),
       ),
     );
   }

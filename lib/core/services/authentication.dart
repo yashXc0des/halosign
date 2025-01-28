@@ -75,4 +75,21 @@ class AuthenticationService {
     }
 
   }
+
+  // Get user role from Firestore
+  Future<UserRole> getUserRole(String userId) async {
+    try {
+      // Fetch user data from Firestore
+      final userDoc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+
+      if (userDoc.exists) {
+        // Assuming the role is stored in the 'role' field
+        final roleString = userDoc.data()?['role'] ?? UserRole.clientUser.name;  // Default to 'clientUser' if role is not found
+        return UserRole.values.firstWhere((e) => e.name == roleString, orElse: () => UserRole.clientUser); // Return the corresponding role
+      }
+    } catch (e) {
+      print('Error fetching user role: $e');
+    }
+    return UserRole.clientUser;  // Return default role if error occurs
+  }
 }
