@@ -1035,7 +1035,7 @@ packages:
     source: hosted
     version: "24.2.9"
   syncfusion_flutter_pdf:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: syncfusion_flutter_pdf
       sha256: a9e85bbfd574bb262733b33494240fda38bfeb58553537560ba4b3f54a31418b

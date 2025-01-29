@@ -25,6 +25,7 @@ dependencies:
   flutter_native_splash: ^2.4.4
   file_picker: ^8.1.7
   syncfusion_flutter_pdfviewer: ^24.2.9
+  syncfusion_flutter_pdf: ^24.2.9
 
 dev_dependencies:
   flutter_test:
@@ -64,4 +65,4 @@ flutter_native_splash:
 flutter:
   uses-material-design: true
   assets:
-    - assets/
+    - assets/files/lease_agreement.pdf
