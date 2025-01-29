@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ViewerDashbaord extends StatefulWidget {
   const ViewerDashbaord({super.key});
@@ -10,6 +11,8 @@ class ViewerDashbaord extends StatefulWidget {
 class _ViewerDashbaordState extends State<ViewerDashbaord> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Container(),
+    );
   }
 }

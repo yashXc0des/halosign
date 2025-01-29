@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class AdminDashbaord extends StatefulWidget {
   const AdminDashbaord({super.key});
@@ -10,6 +11,8 @@ class AdminDashbaord extends StatefulWidget {
 class _AdminDashbaordState extends State<AdminDashbaord> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Container(),
+    );
   }
 }

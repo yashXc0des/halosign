@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ClientadminDashboard extends StatefulWidget {
   const ClientadminDashboard({super.key});
@@ -10,6 +11,8 @@ class ClientadminDashboard extends StatefulWidget {
 class _ClientadminDashboardState extends State<ClientadminDashboard> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Container(),
+    );
   }
 }
