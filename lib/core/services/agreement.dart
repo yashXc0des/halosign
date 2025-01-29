@@ -15,12 +15,12 @@ class AgreementService {
         'createdAt': agreement.createdAt.toIso8601String(),
         'status': agreement.status.name,
         'signatories': agreement.signatories,
+        'pdfUrl': agreement.pdfUrl, // Save PDF URL
       });
     } catch (e) {
       print('Error creating agreement: $e');
     }
   }
-
   // Get agreement by ID
   Future<Agreement?> getAgreementById(String agreementId) async {
     try {
@@ -64,4 +64,24 @@ class AgreementService {
       return [];
     }
   }
+  // Get all agreements (Admin)
+  Future<List<Agreement>> getAllAgreements() async {
+    try {
+      print("Fetching agreements from Firestore...");
+      final agreementsSnapshot = await _firestore.collection('agreements').get();
+
+      print("Agreements fetched: ${agreementsSnapshot.docs.length}");
+      return agreementsSnapshot.docs
+          .map((doc) => Agreement.fromJson(doc.data()))
+          .toList();
+    } catch (e) {
+      print('Error getting all agreements: $e');
+      return [];
+    }
+  }
+
+
+
+
+
 }

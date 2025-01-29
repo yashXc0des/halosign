@@ -92,4 +92,27 @@ class AuthenticationService {
     }
     return UserRole.clientUser;  // Return default role if error occurs
   }
+  // Get all users from Firestore
+  Future<List<UserModel>> getAllUsers() async {
+    try {
+      final userSnapshot = await FirebaseFirestore.instance.collection('users').get();
+      final userList = userSnapshot.docs.map((doc) {
+        final data = doc.data();
+        return UserModel(
+          id: doc.id,
+          name: data['name'] ?? 'Unnamed',
+          email: data['email'] ?? '',
+          role: UserRole.values.firstWhere((e) => e.name == data['role'], orElse: () => UserRole.clientUser),
+        );
+      }).toList();
+
+      return userList;
+    } catch (e) {
+      print('Error fetching all users: $e');
+      return [];
+    }
+  }
+
+
+
 }

@@ -25,6 +25,7 @@ dependencies:
   flutter_native_splash: ^2.4.4
   file_picker: ^8.1.7
   syncfusion_flutter_pdfviewer: ^24.2.9
+  dio: ^5.8.0
 
 dev_dependencies:
   flutter_test:

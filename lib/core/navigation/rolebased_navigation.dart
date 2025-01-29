@@ -65,7 +65,7 @@ class RoleBasedNavigation extends ConsumerWidget {
 
     switch (role) {
       case UserRole.admin:
-        destination = AdminDashbaord();
+        destination = AdminDashboard();
         break;
       case UserRole.clientAdmin:
         destination = ClientadminDashboard();
