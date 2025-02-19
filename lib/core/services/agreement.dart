@@ -71,14 +71,57 @@ class AgreementService {
       final agreementsSnapshot = await _firestore.collection('agreements').get();
 
       print("Agreements fetched: ${agreementsSnapshot.docs.length}");
-      return agreementsSnapshot.docs
-          .map((doc) => Agreement.fromJson(doc.data()))
-          .toList();
-    } catch (e) {
-      print('Error getting all agreements: $e');
+
+      return agreementsSnapshot.docs.map((doc) {
+        final data = doc.data();
+
+        // Convert timestamps safely
+        String? createdAt;
+        if (data["createdAt"] is Timestamp) {
+          createdAt = (data["createdAt"] as Timestamp).toDate().toIso8601String();
+        } else if (data["createdAt"] is String) {
+          createdAt = data["createdAt"];
+        }
+
+        String? updatedAt;
+        if (data["updatedAt"] is Timestamp) {
+          updatedAt = (data["updatedAt"] as Timestamp).toDate().toIso8601String();
+        } else if (data["updatedAt"] is String) {
+          updatedAt = data["updatedAt"];
+        }
+
+        // Convert status safely
+        AgreementStatus status = AgreementStatus.draft; // Default value
+        if (data["status"] is String) {
+          try {
+            status = AgreementStatus.values.byName(data["status"]);
+          } catch (e) {
+            print("Invalid status: ${data["status"]}, using default (draft)");
+          }
+        }
+
+        return Agreement.fromJson({
+          "id": doc.id, // Firestore-generated ID
+          "title": data["title"] ?? "Untitled",
+          "description": data["description"],
+          "createdBy": data["createdBy"] ?? "Unknown",
+          "createdAt": createdAt ?? DateTime.now().toIso8601String(), // Convert to String
+          "updatedAt": updatedAt,
+          "status": status.name, // Convert enum to string
+          "signatories": List<String>.from(data["signatories"] ?? []),
+          "signedBy": List<String>.from(data["signedBy"] ?? []),
+          "pdfUrl": data["pdfUrl"],
+        });
+      }).toList();
+    } catch (e, stack) {
+      print('Error getting all agreements: $e\n$stack');
       return [];
     }
   }
+
+
+
+
 
 
 
