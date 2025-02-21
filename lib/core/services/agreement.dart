@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:halosign/core/models/agreement.dart';
+
+import 'cloudflare_r2_service.dart';
 
 class AgreementService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -12,15 +17,42 @@ class AgreementService {
         'id': agreement.id,
         'title': agreement.title,
         'description': agreement.description,
+        'createdBy': agreement.createdBy, // Store creator ID
         'createdAt': agreement.createdAt.toIso8601String(),
+        'updatedAt': agreement.updatedAt?.toIso8601String(), // Store updatedAt
         'status': agreement.status.name,
         'signatories': agreement.signatories,
+        'signedBy': agreement.signedBy, // Store signedBy list
         'pdfUrl': agreement.pdfUrl, // Save PDF URL
       });
     } catch (e) {
       print('Error creating agreement: $e');
     }
   }
+  // Upload the selected PDF file to Cloudflare R2 (or your preferred storage)
+  Future<String?> uploadPDF(File file) async {
+    try {
+      final pdfUploadNotifier = PDFUploadNotifier();
+      return await pdfUploadNotifier.uploadPDF(file);
+    } catch (e) {
+      print('Error uploading PDF: $e');
+      return null;
+    }
+  }
+
+  // Method to pick a PDF file from the local system
+  Future<File?> pickFile() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (result != null && result.files.single.path != null) {
+      return File(result.files.single.path!);
+    }
+    return null;
+  }
+
   // Get agreement by ID
   Future<Agreement?> getAgreementById(String agreementId) async {
     try {
@@ -118,13 +150,5 @@ class AgreementService {
       return [];
     }
   }
-
-
-
-
-
-
-
-
 
 }

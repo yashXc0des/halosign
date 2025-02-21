@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -29,6 +30,17 @@ class AuthenticationNotifier extends StateNotifier<User?> {
       print('Error during Google Sign-In: $e');
     }
   }
+
+  Future<UserModel> getUserById(String userId) async {
+    final userDoc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+
+    if (userDoc.exists) {
+      return UserModel.fromJson(userDoc.data()!);
+    } else {
+      throw Exception('User not found');
+    }
+  }
+
 
   // Sign out
   Future<void> signOut() async {

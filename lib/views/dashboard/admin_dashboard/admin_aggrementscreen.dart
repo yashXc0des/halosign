@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:halosign/views/dashboard/admin_dashboard/newaggrement_screen.dart';
 
 import '../../../core/providers/aggrement_service_provider.dart';
+import 'agreement_detail_screen.dart';
 
 class AgreementsScreen extends ConsumerWidget {
   @override
@@ -54,8 +55,14 @@ class AgreementsScreen extends ConsumerWidget {
                       ),
                       trailing: Icon(Icons.arrow_forward_ios, color: Colors.blue),
                       onTap: () {
-                        // Navigate to agreement detail screen or action
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AgreementDetailScreen(agreement: agreement),
+                          ),
+                        );
                       },
+
                     ),
                   ),
                 );

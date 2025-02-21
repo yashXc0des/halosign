@@ -33,7 +33,6 @@ class _NewAgreementScreenState extends ConsumerState<NewAgreementScreen> {
       });
     }
   }
-
   Future<void> _uploadAndCreateAgreement() async {
     if (_selectedFile == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -72,11 +71,13 @@ class _NewAgreementScreenState extends ConsumerState<NewAgreementScreen> {
       final newAgreement = Agreement(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         title: _titleController.text.trim(),
-        description: _descriptionController.text.trim(),
+        description: _descriptionController.text.trim().isEmpty ? null : _descriptionController.text.trim(),
         createdBy: user!.uid,
         createdAt: DateTime.now(),
+        updatedAt: DateTime.now(), // Ensure `updatedAt` is set
         status: AgreementStatus.draft,
         signatories: _selectedSignatories,
+        signedBy: [], // Initialize empty list explicitly
         pdfUrl: pdfUrl,
       );
 
@@ -115,15 +116,6 @@ class _NewAgreementScreenState extends ConsumerState<NewAgreementScreen> {
     }
   }
 
-  Future<void> _refreshPage() async {
-    setState(() {
-      _selectedFile = null;
-      _titleController.clear();
-      _descriptionController.clear();
-      _selectedSignatories = [];
-      _isLoading = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

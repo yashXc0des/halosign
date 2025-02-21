@@ -4,12 +4,10 @@ import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:path/path.dart';
-
 import '../../config.dart'; // For extracting file names
 //flutter run --dart-define=API_KEY=your_api_key
 class PDFUploadNotifier {
   final String bucketName = 'esign'; // Your Cloudflare R2 bucket name
-
   String get r2BucketUrl => 'https://$bucketName.$accountId.r2.cloudflarestorage.com';
   final String region = ''; // Cloudflare uses an empty region for signature calculations
   final String service = 's3';
