@@ -1,14 +1,13 @@
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:halosign/views/dashboard/admin_dashboard/selectuser_screen.dart';
 
 import '../../../core/models/agreement.dart';
 import '../../../core/providers/aggrement_service_provider.dart';
-import '../../../core/providers/pdf_upload_provider.dart';
 import '../../../core/services/authentication.dart';
-
+import '../../../core/services/cloudflare_r2_service.dart';
 
 class NewAgreementScreen extends ConsumerStatefulWidget {
   @override
@@ -19,7 +18,8 @@ class _NewAgreementScreenState extends ConsumerState<NewAgreementScreen> {
   File? _selectedFile;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  List<String> _selectedSignatories = []; // List to hold selected signatories
+  List<String> _selectedSignatories = [];
+  bool _isLoading = false;
 
   Future<void> _pickFile() async {
     final result = await FilePicker.platform.pickFiles(
@@ -42,11 +42,10 @@ class _NewAgreementScreenState extends ConsumerState<NewAgreementScreen> {
       return;
     }
 
-    final fileName = "agreements/${DateTime.now().millisecondsSinceEpoch}.pdf";
-
     try {
-      // Get the upload notifier
-      final uploadNotifier = ref.read(pdfUploadProvider.notifier);
+      setState(() {
+        _isLoading = true;
+      });
 
       // Show loading indicator
       showDialog(
@@ -55,28 +54,29 @@ class _NewAgreementScreenState extends ConsumerState<NewAgreementScreen> {
         builder: (context) => const Center(child: CircularProgressIndicator()),
       );
 
-      // Upload PDF
-      final pdfUrl = await uploadNotifier.uploadPDF(_selectedFile!);
-
-      // Dismiss loading indicator
-      Navigator.of(context).pop();
+      // Upload PDF to Cloudflare R2
+      final pdfUploadNotifier = PDFUploadNotifier();
+      final pdfUrl = await pdfUploadNotifier.uploadPDF(_selectedFile!);
 
       if (pdfUrl == null) {
         throw Exception('PDF upload failed');
       }
 
+      // Dismiss loading indicator
+      Navigator.of(context).pop();
+
       // Get current user
-      final user = AuthenticationService().currentUser; // Replace with your actual user fetching method
+      final user = AuthenticationService().currentUser;
 
       // Create agreement object
       final newAgreement = Agreement(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
-        title: _titleController.text,
-        description: _descriptionController.text,
-        createdBy: user!.uid, // Use the actual user ID
+        title: _titleController.text.trim(),
+        description: _descriptionController.text.trim(),
+        createdBy: user!.uid,
         createdAt: DateTime.now(),
         status: AgreementStatus.draft,
-        signatories: _selectedSignatories, // Include selected signatories
+        signatories: _selectedSignatories,
         pdfUrl: pdfUrl,
       );
 
@@ -91,13 +91,15 @@ class _NewAgreementScreenState extends ConsumerState<NewAgreementScreen> {
 
       // Optionally: Navigate back or reset form
       Navigator.of(context).pop();
-
     } catch (e) {
-      // Dismiss loading indicator if still showing
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(); // Dismiss loading dialog
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: ${e.toString()}')),
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -113,11 +115,22 @@ class _NewAgreementScreenState extends ConsumerState<NewAgreementScreen> {
     }
   }
 
+  Future<void> _refreshPage() async {
+    setState(() {
+      _selectedFile = null;
+      _titleController.clear();
+      _descriptionController.clear();
+      _selectedSignatories = [];
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Create New Agreement")),
-      body: Padding(
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,13 +156,15 @@ class _NewAgreementScreenState extends ConsumerState<NewAgreementScreen> {
               ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _selectSignatories, // Call the method to select signatories
+              onPressed: _selectSignatories,
               child: Text("Select Signatories (${_selectedSignatories.length})"),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _uploadAndCreateAgreement,
-              child: const Text("Upload and Save Agreement"),
+              onPressed: _isLoading ? null : _uploadAndCreateAgreement,
+              child: _isLoading
+                  ? const CircularProgressIndicator()
+                  : const Text("Upload and Save Agreement"),
             ),
           ],
         ),
