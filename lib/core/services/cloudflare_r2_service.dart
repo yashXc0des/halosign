@@ -78,7 +78,7 @@ class PDFUploadNotifier {
       );
 
       if (response.statusCode == 200) {
-        return '$r2BucketUrl/$filePath'; // Return the full URL of the uploaded file
+        return '$urlPrefix/$filePath'; // Return the full URL of the uploaded file
       } else {
         throw Exception('Failed to upload PDF: ${response.statusCode} - ${response.body}');
       }

@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+
 import 'package:halosign/core/models/agreement.dart';
 import 'package:halosign/core/models/user.dart'; // Import UserModel if not already imported
-import 'package:flutter_riverpod/flutter_riverpod.dart'; // For using Riverpod to fetch user
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:halosign/views/dashboard/admin_dashboard/pdfview_screen.dart'; // For using Riverpod to fetch user
 
 // Assuming you have a provider that fetches a user by ID
 final userProvider = FutureProvider.family<UserModel, String>((ref, userId) async {
@@ -120,18 +121,18 @@ class AgreementDetailScreen extends ConsumerWidget {
               SizedBox(height: 16),
               ElevatedButton.icon(
                 onPressed: () {
-                  if (agreement.pdfUrl != null && agreement.pdfUrl!.isNotEmpty) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PDFViewScreen(pdfUrl: agreement.pdfUrl!),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('No PDF available for this agreement')),
-                    );
-                  }
+                   if (agreement.pdfUrl != null && agreement.pdfUrl!.isNotEmpty) {
+                     Navigator.push(
+                       context,
+                       MaterialPageRoute(
+                         builder: (context) =>PdfviewerScreen(pdfUrl: agreement.pdfUrl!),
+                       ),
+                     );
+                   } else {
+                     ScaffoldMessenger.of(context).showSnackBar(
+                       SnackBar(content: Text('No PDF available for this agreement')),
+                     );
+                   }
                 },
                 icon: Icon(Icons.picture_as_pdf),
                 label: Text('Open PDF'),
@@ -150,18 +151,4 @@ class AgreementDetailScreen extends ConsumerWidget {
   }
 }
 
-class PDFViewScreen extends StatelessWidget {
-  final String pdfUrl;
 
-  PDFViewScreen({required this.pdfUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('PDF View')),
-      body: PDFView(
-        filePath: pdfUrl,
-      ),
-    );
-  }
-}
