@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/navigation/rolebased_navigation.dart';
+import '../core/providers/aggrement_service_provider.dart';
 import '../core/providers/authentication_provider.dart';
 
 
@@ -22,6 +23,8 @@ class GoogleSignInScreen extends ConsumerWidget {
               onPressed: () {
                 // Trigger Google Sign-In
                 ref.read(authenticationProvider.notifier).signInWithGoogle();
+                
+
               },
               child: Text('Sign in with Google'),
             ),

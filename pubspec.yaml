@@ -29,7 +29,7 @@ dependencies:
   crypto: ^3.0.3
   intl: ^0.18.1
   flutter_pdfview: ^1.4.0
-
+  dot_curved_bottom_nav: ^0.0.2
 
 dev_dependencies:
   flutter_test:

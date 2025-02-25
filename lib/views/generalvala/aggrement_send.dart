@@ -1,0 +1,101 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:halosign/views/dashboard/admin_dashboard/newaggrement_screen.dart';
+import '../../../core/providers/aggrement_service_provider.dart';
+import '../admin_dashboard/agreement_detail_screen.dart';
+class AgreementsScreen1 extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentUserAsyncValue = ref.watch(currentUserProvider); // Get the current user
+    final agreementsAsyncValue = ref.watch(agreementsProvider); // Get all agreements
+
+    Future<void> _refreshAgreements() async {
+      ref.invalidate(agreementsProvider); // Refresh the agreements list
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Agreements"),
+      ),
+      body: currentUserAsyncValue.when(
+        data: (currentUser) {
+          if (currentUser == null) {
+            return Center(child: Text("User not found."));
+          }
+
+          return RefreshIndicator(
+            onRefresh: _refreshAgreements,
+            child: agreementsAsyncValue.when(
+              data: (agreements) {
+                // Filter the agreements to show only those created by the current user
+                final filteredAgreements = agreements
+                    .where((agreement) => agreement.createdBy == currentUser.id)
+                    .toList();
+
+                if (filteredAgreements.isEmpty) {
+                  return ListView(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.4),
+                      Center(child: Text("No agreements found.", style: TextStyle(fontSize: 18, color: Colors.grey))),
+                    ],
+                  );
+                }
+
+                return ListView.builder(
+                  itemCount: filteredAgreements.length,
+                  itemBuilder: (context, index) {
+                    final agreement = filteredAgreements[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                      child: Card(
+                        elevation: 4.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: ListTile(
+                          contentPadding: EdgeInsets.all(16.0),
+                          title: Text(
+                            agreement.title,
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            agreement.description ?? "No description",
+                            style: TextStyle(color: Colors.grey[600]),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          trailing: Icon(Icons.arrow_forward_ios, color: Colors.blue),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AgreementDetailScreen(agreement: agreement),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              loading: () => Center(child: CircularProgressIndicator()),
+              error: (error, stack) => Center(child: Text('Error: $error', style: TextStyle(color: Colors.red))),
+            ),
+          );
+        },
+        loading: () => Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error: $error', style: TextStyle(color: Colors.red))),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NewAgreementScreen()),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
