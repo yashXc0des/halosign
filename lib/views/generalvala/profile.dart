@@ -4,7 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/providers/aggrement_service_provider.dart';
 import '../../../core/providers/authentication_provider.dart';
-import '../../signupscreen.dart';
+
+import '../signupscreen.dart';
 
 class ProfileScreen extends ConsumerWidget {
   @override

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:halosign/views/dashboard/admin_dashboard/newaggrement_screen.dart';
 import '../../../core/providers/aggrement_service_provider.dart';
-import '../admin_dashboard/agreement_detail_screen.dart';
+import '../dashboard/admin_dashboard/agreement_detail_screen.dart';
+
 class AgreementsScreen1 extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {

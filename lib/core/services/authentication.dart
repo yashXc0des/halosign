@@ -10,6 +10,11 @@ class AuthenticationService {
   // Get the current user
   User? get currentUser => _firebaseAuth.currentUser;
 
+  // Stream to listen to authentication state changes
+  Stream<User?> authStateChanges() {
+    return _firebaseAuth.authStateChanges();
+  }
+
   // Sign in with Google
   Future<UserCredential?> signInWithGoogle() async {
     try {

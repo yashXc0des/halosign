@@ -10,19 +10,22 @@ final authServiceProvider = Provider<AuthenticationService>((ref) {
 });
 
 // Current User Provider
-final currentUserProvider = FutureProvider<UserModel?>((ref) async {
+final currentUserProvider = StreamProvider<UserModel?>((ref) {
   final authService = ref.read(authServiceProvider);
-  final user = authService.currentUser;
-  if (user != null) {
-    return UserModel(
-      id: user.uid,
-      name: user.displayName ?? 'Unnamed',
-      email: user.email ?? '',
-      role: await authService.getUserRole(user.uid),
-    );
-  }
-  return null;
+  // Listen to Firebase auth state changes
+  return authService.authStateChanges().map((user) {
+    if (user != null) {
+      return UserModel(
+        id: user.uid,
+        name: user.displayName ?? 'Unnamed',
+        email: user.email ?? '',
+        role: UserRole.clientUser, // or fetch role here if needed
+      );
+    }
+    return null;
+  });
 });
+
 
 // Agreement Service Provider
 final agreementServiceProvider = Provider<AgreementService>((ref) {

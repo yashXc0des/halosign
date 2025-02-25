@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dot_curved_bottom_nav/dot_curved_bottom_nav.dart'; // Make sure to import the necessary package
-import 'package:halosign/views/dashboard/generalvala/aggrement_received.dart';
-import 'package:halosign/views/dashboard/generalvala/profile.dart';
+import 'package:halosign/views/generalvala/profile.dart';
+import 'aggrement_received.dart';
 import 'aggrement_send.dart';
 
 class AdminDashboard1 extends StatefulWidget {
