@@ -16,6 +16,7 @@ void main() async {
     runApp(
       ProviderScope(
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           home:GoogleSignInScreen (), // PdfViewer is now the home widget
         ),
       ),

@@ -14,7 +14,7 @@ class _AdminDashboardState extends State<AdminDashboard1> {
   final List<Widget> _screens = [
 
     AgreementsScreen1(),
-    AggrementReceived(),
+    AgreementsReceivedScreen(),
     ProfileScreen()
   ];
 

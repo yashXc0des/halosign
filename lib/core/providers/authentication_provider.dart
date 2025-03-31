@@ -27,7 +27,7 @@ class AuthenticationNotifier extends StateNotifier<User?> {
       final userCredential = await _authService.signInWithGoogle();
       state = userCredential?.user;
     } catch (e) {
-      print('Error during Google Sign-In: $e');
+      print('Error d  uring Google Sign-In: $e');
     }
   }
 

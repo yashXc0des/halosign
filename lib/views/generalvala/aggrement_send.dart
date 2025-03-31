@@ -16,19 +16,29 @@ class AgreementsScreen1 extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Agreements"),
+        title: Text("Agreements",style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600,color: Colors.white)),
+        backgroundColor: Colors.deepPurple, // Custom app bar color
+        elevation: 0,
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // Implement search functionality if required
+            },
+          ),
+        ],
       ),
       body: currentUserAsyncValue.when(
         data: (currentUser) {
           if (currentUser == null) {
-            return Center(child: Text("User not found."));
+            return Center(child: Text("User not found.", style: TextStyle(color: Colors.red)));
           }
 
           return RefreshIndicator(
             onRefresh: _refreshAgreements,
             child: agreementsAsyncValue.when(
               data: (agreements) {
-                // Filter the agreements to show only those created by the current user
                 final filteredAgreements = agreements
                     .where((agreement) => agreement.createdBy == currentUser.id)
                     .toList();
@@ -37,7 +47,16 @@ class AgreementsScreen1 extends ConsumerWidget {
                   return ListView(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height * 0.4),
-                      Center(child: Text("No agreements found.", style: TextStyle(fontSize: 18, color: Colors.grey))),
+                      Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.error_outline, color: Colors.grey, size: 50),
+                            SizedBox(height: 16),
+                            Text("No agreements found.", style: TextStyle(fontSize: 18, color: Colors.grey)),
+                          ],
+                        ),
+                      ),
                     ],
                   );
                 }
@@ -49,9 +68,9 @@ class AgreementsScreen1 extends ConsumerWidget {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                       child: Card(
-                        elevation: 4.0,
+                        elevation: 5.0, // Subtle shadow
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
+                          borderRadius: BorderRadius.circular(16.0), // Rounded corners
                         ),
                         child: ListTile(
                           contentPadding: EdgeInsets.all(16.0),
@@ -95,7 +114,8 @@ class AgreementsScreen1 extends ConsumerWidget {
             MaterialPageRoute(builder: (context) => NewAgreementScreen()),
           );
         },
-        child: Icon(Icons.add),
+        backgroundColor: Colors.deepPurple, // Custom FAB color
+        child: Icon(Icons.add, color: Colors.white), // Icon color for contrast
       ),
     );
   }

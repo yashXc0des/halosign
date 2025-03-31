@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../views/dashboard/admin_dashboard/admin_dashbaord.dart';
-import '../../views/dashboard/clientAdmin_dashboard/clientAdmin_dashboard.dart';
-import '../../views/dashboard/clientUser_dashbaord/clientUser_dashbaord.dart';
-import '../../views/dashboard/viewer_dashbaord/viewer_dashbaord.dart';
 import '../../views/generalvala/navigation.dart';
 import '../models/user.dart';
 import '../providers/authentication_provider.dart';
@@ -67,15 +63,6 @@ class RoleBasedNavigation extends ConsumerWidget {
     switch (role) {
       case UserRole.admin:
         destination = AdminDashboard1();
-        break;
-      case UserRole.clientAdmin:
-        destination = ClientadminDashboard();
-        break;
-      case UserRole.clientUser:
-        destination = ClientuserDashbaord();
-        break;
-      case UserRole.viewer:
-        destination = ViewerDashbaord();
         break;
       default:
         destination = Center(child: Text('Unknown role'));

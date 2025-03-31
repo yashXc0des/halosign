@@ -68,7 +68,7 @@ class _NewAgreementScreenState extends ConsumerState<NewAgreementScreen> {
       final user = AuthenticationService().currentUser;
 
       // Create agreement object
-      final newAgreement = Agreement(
+      final newAgreement = Agreement( 
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         title: _titleController.text.trim(),
         description: _descriptionController.text.trim().isEmpty ? null : _descriptionController.text.trim(),
