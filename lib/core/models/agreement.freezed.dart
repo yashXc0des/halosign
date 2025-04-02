@@ -38,7 +38,11 @@ mixin _$Agreement {
       throw _privateConstructorUsedError; // List of user IDs required to sign.
   List<String> get signedBy =>
       throw _privateConstructorUsedError; // List of user IDs who have signed.
-  String? get pdfUrl => throw _privateConstructorUsedError;
+  String? get pdfUrl =>
+      throw _privateConstructorUsedError; // URL of the agreement PDF (nullable).
+  DateTime? get validFrom =>
+      throw _privateConstructorUsedError; // Start date of validity
+  DateTime? get validUntil => throw _privateConstructorUsedError;
 
   /// Serializes this Agreement to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -65,7 +69,9 @@ abstract class $AgreementCopyWith<$Res> {
       AgreementStatus status,
       List<String> signatories,
       List<String> signedBy,
-      String? pdfUrl});
+      String? pdfUrl,
+      DateTime? validFrom,
+      DateTime? validUntil});
 }
 
 /// @nodoc
@@ -93,6 +99,8 @@ class _$AgreementCopyWithImpl<$Res, $Val extends Agreement>
     Object? signatories = null,
     Object? signedBy = null,
     Object? pdfUrl = freezed,
+    Object? validFrom = freezed,
+    Object? validUntil = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -135,6 +143,14 @@ class _$AgreementCopyWithImpl<$Res, $Val extends Agreement>
           ? _value.pdfUrl
           : pdfUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      validFrom: freezed == validFrom
+          ? _value.validFrom
+          : validFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      validUntil: freezed == validUntil
+          ? _value.validUntil
+          : validUntil // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -157,7 +173,9 @@ abstract class _$$AgreementImplCopyWith<$Res>
       AgreementStatus status,
       List<String> signatories,
       List<String> signedBy,
-      String? pdfUrl});
+      String? pdfUrl,
+      DateTime? validFrom,
+      DateTime? validUntil});
 }
 
 /// @nodoc
@@ -183,6 +201,8 @@ class __$$AgreementImplCopyWithImpl<$Res>
     Object? signatories = null,
     Object? signedBy = null,
     Object? pdfUrl = freezed,
+    Object? validFrom = freezed,
+    Object? validUntil = freezed,
   }) {
     return _then(_$AgreementImpl(
       id: null == id
@@ -225,6 +245,14 @@ class __$$AgreementImplCopyWithImpl<$Res>
           ? _value.pdfUrl
           : pdfUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      validFrom: freezed == validFrom
+          ? _value.validFrom
+          : validFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      validUntil: freezed == validUntil
+          ? _value.validUntil
+          : validUntil // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -242,7 +270,9 @@ class _$AgreementImpl extends _Agreement {
       this.status = AgreementStatus.draft,
       final List<String> signatories = const [],
       final List<String> signedBy = const [],
-      this.pdfUrl})
+      this.pdfUrl,
+      this.validFrom,
+      this.validUntil})
       : _signatories = signatories,
         _signedBy = signedBy,
         super._();
@@ -296,10 +326,16 @@ class _$AgreementImpl extends _Agreement {
 // List of user IDs who have signed.
   @override
   final String? pdfUrl;
+// URL of the agreement PDF (nullable).
+  @override
+  final DateTime? validFrom;
+// Start date of validity
+  @override
+  final DateTime? validUntil;
 
   @override
   String toString() {
-    return 'Agreement(id: $id, title: $title, description: $description, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, signatories: $signatories, signedBy: $signedBy, pdfUrl: $pdfUrl)';
+    return 'Agreement(id: $id, title: $title, description: $description, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, signatories: $signatories, signedBy: $signedBy, pdfUrl: $pdfUrl, validFrom: $validFrom, validUntil: $validUntil)';
   }
 
   @override
@@ -321,7 +357,11 @@ class _$AgreementImpl extends _Agreement {
             const DeepCollectionEquality()
                 .equals(other._signatories, _signatories) &&
             const DeepCollectionEquality().equals(other._signedBy, _signedBy) &&
-            (identical(other.pdfUrl, pdfUrl) || other.pdfUrl == pdfUrl));
+            (identical(other.pdfUrl, pdfUrl) || other.pdfUrl == pdfUrl) &&
+            (identical(other.validFrom, validFrom) ||
+                other.validFrom == validFrom) &&
+            (identical(other.validUntil, validUntil) ||
+                other.validUntil == validUntil));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -337,7 +377,9 @@ class _$AgreementImpl extends _Agreement {
       status,
       const DeepCollectionEquality().hash(_signatories),
       const DeepCollectionEquality().hash(_signedBy),
-      pdfUrl);
+      pdfUrl,
+      validFrom,
+      validUntil);
 
   /// Create a copy of Agreement
   /// with the given fields replaced by the non-null parameter values.
@@ -366,7 +408,9 @@ abstract class _Agreement extends Agreement {
       final AgreementStatus status,
       final List<String> signatories,
       final List<String> signedBy,
-      final String? pdfUrl}) = _$AgreementImpl;
+      final String? pdfUrl,
+      final DateTime? validFrom,
+      final DateTime? validUntil}) = _$AgreementImpl;
   const _Agreement._() : super._();
 
   factory _Agreement.fromJson(Map<String, dynamic> json) =
@@ -391,7 +435,11 @@ abstract class _Agreement extends Agreement {
   @override
   List<String> get signedBy; // List of user IDs who have signed.
   @override
-  String? get pdfUrl;
+  String? get pdfUrl; // URL of the agreement PDF (nullable).
+  @override
+  DateTime? get validFrom; // Start date of validity
+  @override
+  DateTime? get validUntil;
 
   /// Create a copy of Agreement
   /// with the given fields replaced by the non-null parameter values.

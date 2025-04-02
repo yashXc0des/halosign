@@ -27,6 +27,12 @@ _$AgreementImpl _$$AgreementImplFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       pdfUrl: json['pdfUrl'] as String?,
+      validFrom: json['validFrom'] == null
+          ? null
+          : DateTime.parse(json['validFrom'] as String),
+      validUntil: json['validUntil'] == null
+          ? null
+          : DateTime.parse(json['validUntil'] as String),
     );
 
 Map<String, dynamic> _$$AgreementImplToJson(_$AgreementImpl instance) =>
@@ -41,6 +47,8 @@ Map<String, dynamic> _$$AgreementImplToJson(_$AgreementImpl instance) =>
       'signatories': instance.signatories,
       'signedBy': instance.signedBy,
       'pdfUrl': instance.pdfUrl,
+      'validFrom': instance.validFrom?.toIso8601String(),
+      'validUntil': instance.validUntil?.toIso8601String(),
     };
 
 const _$AgreementStatusEnumMap = {

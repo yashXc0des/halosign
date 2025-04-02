@@ -10,7 +10,7 @@ enum AgreementStatus {
   pending,
   signed,
   rejected,
-  completed,
+  completed, expired,
 }
 
 @freezed
@@ -27,6 +27,8 @@ class Agreement with _$Agreement {
     @Default([]) List<String> signatories, // List of user IDs required to sign.
     @Default([]) List<String> signedBy, // List of user IDs who have signed.
     String? pdfUrl, // URL of the agreement PDF (nullable).
+    DateTime? validFrom, // Start date of validity
+    DateTime? validUntil,
   }) = _Agreement;
 
   /// Private named constructor required for custom getters.
@@ -56,6 +58,9 @@ extension AgreementStatusExtension on AgreementStatus {
         return 'Rejected';
       case AgreementStatus.completed:
         return 'Completed';
+      case AgreementStatus.expired:
+        // TODO: Handle this case.
+        throw UnimplementedError();
     }
   }
 }

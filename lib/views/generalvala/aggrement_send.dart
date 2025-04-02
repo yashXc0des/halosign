@@ -16,7 +16,7 @@ class AgreementsScreen1 extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Agreements",style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600,color: Colors.white)),
+        title: Text("Agreements"),
         backgroundColor: Colors.deepPurple, // Custom app bar color
         elevation: 0,
         centerTitle: true,

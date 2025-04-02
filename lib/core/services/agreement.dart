@@ -24,11 +24,14 @@ class AgreementService {
         'signatories': agreement.signatories,
         'signedBy': agreement.signedBy, // Store signedBy list
         'pdfUrl': agreement.pdfUrl, // Save PDF URL
+        'validFrom': agreement.validFrom?.toIso8601String(), // Store start date
+        'validUntil': agreement.validUntil?.toIso8601String(), // Store end date
       });
     } catch (e) {
       print('Error creating agreement: $e');
     }
   }
+
   // Upload the selected PDF file to Cloudflare R2 (or your preferred storage)
   Future<String?> uploadPDF(File file) async {
     try {
@@ -96,6 +99,7 @@ class AgreementService {
       return [];
     }
   }
+
   // Get all agreements (Admin)
   Future<List<Agreement>> getAllAgreements() async {
     try {
@@ -132,17 +136,30 @@ class AgreementService {
           }
         }
 
+        // Check validFrom and validUntil (convert Timestamp to String if needed)
+        DateTime? validFrom;
+        if (data["validFrom"] is Timestamp) {
+          validFrom = (data["validFrom"] as Timestamp).toDate();
+        }
+
+        DateTime? validUntil;
+        if (data["validUntil"] is Timestamp) {
+          validUntil = (data["validUntil"] as Timestamp).toDate();
+        }
+
         return Agreement.fromJson({
           "id": doc.id, // Firestore-generated ID
           "title": data["title"] ?? "Untitled",
           "description": data["description"],
           "createdBy": data["createdBy"] ?? "Unknown",
-          "createdAt": createdAt ?? DateTime.now().toIso8601String(), // Convert to String
+          "createdAt": createdAt ?? DateTime.now().toIso8601String(),
           "updatedAt": updatedAt,
-          "status": status.name, // Convert enum to string
+          "status": status.name,
           "signatories": List<String>.from(data["signatories"] ?? []),
           "signedBy": List<String>.from(data["signedBy"] ?? []),
           "pdfUrl": data["pdfUrl"],
+          "validFrom": validFrom?.toIso8601String(), // Ensure it's a string if not null
+          "validUntil": validUntil?.toIso8601String(), // Ensure it's a string if not null
         });
       }).toList();
     } catch (e, stack) {
