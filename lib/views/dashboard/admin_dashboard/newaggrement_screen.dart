@@ -230,7 +230,7 @@ class _NewAgreementScreenState extends ConsumerState<NewAgreementScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Lottie.asset("assets/lottie/upload_lotte.json"),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             Text(
               'Uploading agreement...',
               style: TextStyle(fontFamily: 'Montserrat'),
