@@ -5,26 +5,31 @@ import '../../../core/providers/aggrement_service_provider.dart';
 import '../dashboard/admin_dashboard/agreement_detail_screen.dart';
 
 class AgreementsScreen1 extends ConsumerWidget {
+  const AgreementsScreen1({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentUserAsyncValue = ref.watch(currentUserProvider); // Get the current user
-    final agreementsAsyncValue = ref.watch(agreementsProvider); // Get all agreements
+    final currentUserAsyncValue = ref.watch(currentUserProvider);
+    final agreementsAsyncValue = ref.watch(agreementsProvider);
 
     Future<void> _refreshAgreements() async {
-      ref.invalidate(agreementsProvider); // Refresh the agreements list
+      ref.invalidate(agreementsProvider);
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Agreements"),
-        backgroundColor: Colors.deepPurple, // Custom app bar color
+        title: const Text(
+          "Agreements",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.deepPurple,
         elevation: 0,
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search, color: Colors.white),
             onPressed: () {
-              // Implement search functionality if required
+              // Future: Implement search
             },
           ),
         ],
@@ -32,7 +37,12 @@ class AgreementsScreen1 extends ConsumerWidget {
       body: currentUserAsyncValue.when(
         data: (currentUser) {
           if (currentUser == null) {
-            return Center(child: Text("User not found.", style: TextStyle(color: Colors.red)));
+            return const Center(
+              child: Text(
+                "User not found.",
+                style: TextStyle(color: Colors.red),
+              ),
+            );
           }
 
           return RefreshIndicator(
@@ -46,14 +56,17 @@ class AgreementsScreen1 extends ConsumerWidget {
                 if (filteredAgreements.isEmpty) {
                   return ListView(
                     children: [
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.4),
-                      Center(
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.35),
+                      const Center(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.error_outline, color: Colors.grey, size: 50),
-                            SizedBox(height: 16),
-                            Text("No agreements found.", style: TextStyle(fontSize: 18, color: Colors.grey)),
+                            Icon(Icons.inbox, size: 60, color: Colors.grey),
+                            SizedBox(height: 12),
+                            Text(
+                              "No agreements found.",
+                              style: TextStyle(fontSize: 16, color: Colors.grey),
+                            ),
                           ],
                         ),
                       ),
@@ -61,35 +74,41 @@ class AgreementsScreen1 extends ConsumerWidget {
                   );
                 }
 
-                return ListView.builder(
+                return ListView.separated(
                   itemCount: filteredAgreements.length,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  separatorBuilder: (_, __) => const SizedBox(height: 8),
                   itemBuilder: (context, index) {
                     final agreement = filteredAgreements[index];
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Card(
-                        elevation: 5.0, // Subtle shadow
+                        elevation: 4,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0), // Rounded corners
+                          borderRadius: BorderRadius.circular(16),
                         ),
                         child: ListTile(
-                          contentPadding: EdgeInsets.all(16.0),
+                          contentPadding: const EdgeInsets.all(16),
+                          leading: const Icon(Icons.description, color: Colors.deepPurple),
                           title: Text(
                             agreement.title,
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
                           ),
                           subtitle: Text(
                             agreement.description ?? "No description",
-                            style: TextStyle(color: Colors.grey[600]),
+                            style: TextStyle(color: Colors.grey[700]),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          trailing: Icon(Icons.arrow_forward_ios, color: Colors.blue),
+                          trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.deepPurple),
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AgreementDetailScreen(agreement: agreement),
+                                builder: (_) => AgreementDetailScreen(agreement: agreement),
                               ),
                             );
                           },
@@ -99,23 +118,35 @@ class AgreementsScreen1 extends ConsumerWidget {
                   },
                 );
               },
-              loading: () => Center(child: CircularProgressIndicator()),
-              error: (error, stack) => Center(child: Text('Error: $error', style: TextStyle(color: Colors.red))),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, _) => Center(
+                child: Text(
+                  'Error loading agreements: $error',
+                  style: const TextStyle(color: Colors.red),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
           );
         },
-        loading: () => Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error: $error', style: TextStyle(color: Colors.red))),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, _) => Center(
+          child: Text(
+            'Error loading user: $error',
+            style: const TextStyle(color: Colors.red),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => NewAgreementScreen()),
+            MaterialPageRoute(builder: (_) =>  NewAgreementScreen()),
           );
         },
-        backgroundColor: Colors.deepPurple, // Custom FAB color
-        child: Icon(Icons.add, color: Colors.white), // Icon color for contrast
+        backgroundColor: Colors.deepPurple,
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

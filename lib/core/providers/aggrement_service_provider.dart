@@ -43,3 +43,9 @@ final usersProvider = FutureProvider<List<UserModel>>((ref) async {
   final authService = ref.read(authServiceProvider);
   return await authService.getAllUsers(); // Ensure this method is implemented correctly
 });
+// Agreement Detail Provider using Riverpod's FutureProvider.family
+final agreementDetailProvider = FutureProvider.family<Agreement?, String>((ref, id) async {
+  final service = ref.read(agreementServiceProvider);
+  return await service.getAgreementById(id);
+});
+
