@@ -57,4 +57,5 @@ const _$AgreementStatusEnumMap = {
   AgreementStatus.signed: 'signed',
   AgreementStatus.rejected: 'rejected',
   AgreementStatus.completed: 'completed',
+  AgreementStatus.expired: 'expired',
 };

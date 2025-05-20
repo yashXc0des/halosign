@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:path/path.dart';
+import 'package:uuid/uuid.dart';
 import '../../config.dart'; // For extracting file names
 //flutter run --dart-define=API_KEY=your_api_key
 class PDFUploadNotifier {
@@ -86,6 +89,50 @@ class PDFUploadNotifier {
       throw Exception('Error uploading PDF: $e');
     }
   }
+
+  Future<String?> uploadSignatureImage(Uint8List imageBytes) async {
+    try {
+      final String fileName = 'signatures/${DateTime.now().millisecondsSinceEpoch}_${const Uuid().v4()}.png';
+
+      // Create multipart request
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse('YOUR_SIGNATURE_UPLOAD_ENDPOINT'),
+      );
+
+      // Add file to request
+      request.files.add(
+        http.MultipartFile.fromBytes(
+          'file',
+          imageBytes.toList(), // <- this is key
+          filename: fileName,
+        ),
+      );
+
+
+      // Add necessary headers
+      request.headers.addAll({
+        'Content-Type': 'multipart/form-data',
+        // Add authentication headers if needed
+      });
+
+      // Send the request
+      final response = await request.send();
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final responseBody = await response.stream.bytesToString();
+        final jsonResponse = json.decode(responseBody);
+
+        // Return the URL of the uploaded file
+        return jsonResponse['url'] as String;
+      }
+      return null;
+    } catch (e) {
+      debugPrint('Error uploading signature image: $e');
+      return null;
+    }
+  }
+
 
   List<int> _getSignatureKey(String key, String dateStamp, String region, String service) {
     final kDate = Hmac(sha256, utf8.encode('AWS4$key')).convert(utf8.encode(dateStamp)).bytes;

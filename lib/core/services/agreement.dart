@@ -100,6 +100,28 @@ class AgreementService {
     }
   }
 
+  //updates status of agggrement
+  Future<void> updateAgreement(Agreement agreement) async {
+    try {
+      final agreementRef = _firestore.collection('agreements').doc(agreement.id);
+      await agreementRef.update({
+        'title': agreement.title,
+        'description': agreement.description,
+        'updatedAt': DateTime.now().toIso8601String(),
+        'status': agreement.status.name,
+        'signatories': agreement.signatories,
+        'signedBy': agreement.signedBy,
+        'pdfUrl': agreement.pdfUrl,
+        'validFrom': agreement.validFrom?.toIso8601String(),
+        'validUntil': agreement.validUntil?.toIso8601String(),
+      });
+    } catch (e) {
+      print('Error updating agreement: $e');
+      throw Exception('Failed to update agreement');
+    }
+  }
+
+
   // Get all agreements (Admin)
   Future<List<Agreement>> getAllAgreements() async {
     try {
